@@ -30,7 +30,7 @@ log_error() {
 }
 
 # Check if we're in the right directory
-if [ ! -f "docs/PROJECT_STRUCTURE.md" ]; then
+if [ ! -f "docs/architecture/PROJECT_STRUCTURE.md" ]; then
     log_error "PROJECT_STRUCTURE.md not found. Please run this script from the frontend directory."
     exit 1
 fi

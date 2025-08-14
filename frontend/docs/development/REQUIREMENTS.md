@@ -218,7 +218,7 @@ The documentation will be considered complete and correct when:
 ```
 frontend/
 ├── REQUIREMENTS.md              # This requirements document
-├── docs/                        # All 6 documentation files
+├── docs/                        # All 6 documentation files in various subfolders (e.g. architecture, development)
 ├── scripts/                     # Script folder
 │   └── init-app.sh              # Initialization script
 └── app/                         # Created by init script
@@ -249,11 +249,11 @@ The completed docs folder should contain exactly these 6 files:
 ```
 docs/
 ├── README.md                    # Comprehensive feature and requirements analysis
-├── IMPLEMENTATION_PLAN.md       # One feature per phase (no code examples)
-├── PROJECT_STRUCTURE.md         # Centralized file organization reference
-├── ARCHITECTURE.md              # SOLID/DRY principles + anti-pattern prevention
-├── API_REFERENCE.md             # Complete interface documentation
-└── CODE_EXAMPLES.md             # Implementation pattern examples
+├── architecture/PROJECT_STRUCTURE.md         # Centralized file organization reference
+├── architecture/ARCHITECTURE.md              # SOLID/DRY principles + anti-pattern prevention
+├── development/IMPLEMENTATION_PLAN.md       # One feature per phase (no code examples)
+├── development/API_REFERENCE.md             # Complete interface documentation
+└── development/CODE_EXAMPLES.md             # Implementation pattern examples
 ```
 
 ## 🔧 Usage Instructions
