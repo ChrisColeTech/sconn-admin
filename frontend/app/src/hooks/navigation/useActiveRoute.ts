@@ -1,0 +1,2 @@
+// useActiveRoute placeholder
+export {};

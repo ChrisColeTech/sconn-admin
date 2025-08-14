@@ -1,0 +1,2 @@
+// useClipboard placeholder
+export {};

@@ -1,0 +1,2 @@
+// useCategoryHierarchy placeholder
+export {};

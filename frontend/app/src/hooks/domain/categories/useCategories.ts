@@ -1,0 +1,2 @@
+// useCategories placeholder
+export {};

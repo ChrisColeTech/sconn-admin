@@ -1,0 +1,2 @@
+// useSearch placeholder
+export {};

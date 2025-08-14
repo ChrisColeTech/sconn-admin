@@ -1,0 +1,2 @@
+// categoryService placeholder
+export {};

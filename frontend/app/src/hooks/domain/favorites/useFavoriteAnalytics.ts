@@ -1,0 +1,2 @@
+// useFavoriteAnalytics placeholder
+export {};

@@ -1,0 +1,2 @@
+// useBulkAssignment placeholder
+export {};

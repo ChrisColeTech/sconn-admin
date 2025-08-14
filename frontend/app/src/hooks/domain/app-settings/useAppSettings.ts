@@ -1,0 +1,2 @@
+// useAppSettings placeholder
+export {};

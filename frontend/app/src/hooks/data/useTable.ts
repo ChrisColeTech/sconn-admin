@@ -1,0 +1,2 @@
+// useTable placeholder
+export {};

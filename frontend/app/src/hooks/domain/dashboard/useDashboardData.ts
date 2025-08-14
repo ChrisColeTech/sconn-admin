@@ -1,0 +1,2 @@
+// useDashboardData placeholder
+export {};

@@ -10,10 +10,10 @@ import {
 const getApiBaseUrl = (): string => {
   const env = import.meta.env.VITE_NODE_ENV || 'development';
   const baseUrls: Record<string, string> = {
-    development: 'https://api-v2.sconn.dev.cloud.jewels.com/dev',
-    test: 'https://api-v2.sconn.test.cloud.jewels.com/test',
-    staging: 'https://api-v2.sconn.stage.cloud.jewels.com/stage',
-    production: 'https://api-v2.sconn.cloud.jewels.com/prod'
+    development: 'http://localhost:3001',
+    test: 'http://localhost:3001',
+    staging: 'http://localhost:3001',
+    production: 'http://localhost:3001'
   };
   
   return baseUrls[env] || baseUrls.development;
@@ -34,7 +34,7 @@ class AuthService {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
       const response: AxiosResponse<LoginResponse> = await this.apiClient.post(
-        '/auth/login',
+        '/api/auth/login',
         credentials
       );
       
@@ -53,7 +53,7 @@ class AuthService {
   async refreshToken(refreshToken: string): Promise<RefreshResponse> {
     try {
       const response: AxiosResponse<RefreshResponse> = await this.apiClient.post(
-        '/auth/refresh',
+        '/api/auth/refresh',
         { refreshToken } as RefreshRequest
       );
       
@@ -69,10 +69,11 @@ class AuthService {
   /**
    * Logout user and invalidate session
    */
-  async logout(): Promise<LogoutResponse> {
+  async logout(refreshToken?: string): Promise<LogoutResponse> {
     try {
       const response: AxiosResponse<LogoutResponse> = await this.apiClient.post(
-        '/auth/logout'
+        '/api/auth/logout',
+        { refreshToken }
       );
       
       return response.data;

@@ -1,0 +1,2 @@
+// usePermissions placeholder
+export {};

@@ -1,0 +1,2 @@
+// useUserActivity placeholder
+export {};

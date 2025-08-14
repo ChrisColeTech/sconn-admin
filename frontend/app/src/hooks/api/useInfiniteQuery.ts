@@ -1,0 +1,2 @@
+// useInfiniteQuery placeholder
+export {};

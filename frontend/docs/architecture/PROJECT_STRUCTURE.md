@@ -65,7 +65,7 @@ app/
 └── README.md                         # Application-specific documentation
 ```
 
-## 🧩 Components Directory Structure
+## 🧩 Components Directory Structure - **SINGLE SOURCE OF TRUTH**
 
 ```
 src/components/
@@ -165,197 +165,127 @@ src/components/
 │   │   ├── MetricTrend.tsx           # Trend indicator
 │   │   └── index.ts                  # Public exports
 │   └── index.ts                      # Data components public exports
-├── domain/                           # Domain-specific shared components
-│   ├── Button/                       # Button domain components
-│   │   ├── ButtonCard.tsx            # Button display card
-│   │   ├── ButtonPreview.tsx         # Button preview component
-│   │   ├── ButtonStatus.tsx          # Button status indicator
+├── domain/                           # Domain-specific components (SINGLE LOCATION)
+│   ├── auth/                         # Authentication components
+│   │   ├── LoginForm.tsx             # Login form component
 │   │   └── index.ts                  # Public exports
-│   ├── Category/                     # Category domain components
-│   │   ├── CategoryCard.tsx          # Category display card
-│   │   ├── CategoryTree.tsx          # Category hierarchy tree
-│   │   ├── CategoryBadge.tsx         # Category badge
-│   │   └── index.ts                  # Public exports
-│   ├── User/                         # User domain components
-│   │   ├── UserCard.tsx              # User display card
-│   │   ├── UserAvatar.tsx            # User avatar component
-│   │   ├── UserStatus.tsx            # User status indicator
-│   │   └── index.ts                  # Public exports
-│   └── index.ts                      # Domain components public exports
-└── index.ts                          # All components public exports
-```
-
-## 📄 Pages Directory Structure
-
-```
-src/pages/
-├── dashboard/                        # Dashboard domain
-│   ├── DashboardPage.tsx             # Main dashboard page
-│   ├── components/                   # Dashboard-specific components
+│   ├── dashboard/                    # Dashboard components
 │   │   ├── SystemMetrics.tsx         # System metrics widget
 │   │   ├── QuickActions.tsx          # Quick action buttons
 │   │   ├── RecentActivity.tsx        # Recent activity feed
 │   │   ├── UsageAnalytics.tsx        # Usage analytics charts
-│   │   └── index.ts                  # Dashboard components exports
-│   ├── hooks/                        # Dashboard-specific hooks
-│   │   ├── useDashboardData.ts       # Dashboard data fetching
-│   │   ├── useMetrics.ts             # Metrics data hook
-│   │   └── index.ts                  # Dashboard hooks exports
-│   └── index.ts                      # Dashboard page exports
-├── buttons/                          # Button management domain
-│   ├── ButtonListPage.tsx            # Button listing page
-│   ├── ButtonCreatePage.tsx          # Button creation page
-│   ├── ButtonEditPage.tsx            # Button editing page
-│   ├── ButtonDetailPage.tsx          # Button detail view
-│   ├── components/                   # Button-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── buttons/                      # Button management components
 │   │   ├── ButtonForm.tsx            # Button create/edit form
 │   │   ├── ButtonList.tsx            # Button listing component
 │   │   ├── ButtonFilters.tsx         # Button filtering
 │   │   ├── ButtonActions.tsx         # Button action buttons
 │   │   ├── ButtonRelationships.tsx   # Button-category relationships
-│   │   └── index.ts                  # Button components exports
-│   ├── hooks/                        # Button-specific hooks
-│   │   ├── useButtons.ts             # Button data management
-│   │   ├── useButtonForm.ts          # Button form logic
-│   │   ├── useButtonActions.ts       # Button actions hook
-│   │   └── index.ts                  # Button hooks exports
-│   └── index.ts                      # Button pages exports
-├── categories/                       # Category management domain
-│   ├── CategoryListPage.tsx          # Category listing page
-│   ├── CategoryCreatePage.tsx        # Category creation page
-│   ├── CategoryEditPage.tsx          # Category editing page
-│   ├── CategoryDetailPage.tsx        # Category detail view
-│   ├── components/                   # Category-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── categories/                   # Category management components
 │   │   ├── CategoryForm.tsx          # Category create/edit form
 │   │   ├── CategoryList.tsx          # Category listing component
 │   │   ├── CategoryHierarchy.tsx     # Category hierarchy view
 │   │   ├── CategoryAssignments.tsx   # Button assignments view
-│   │   └── index.ts                  # Category components exports
-│   ├── hooks/                        # Category-specific hooks
-│   │   ├── useCategories.ts          # Category data management
-│   │   ├── useCategoryForm.ts        # Category form logic
-│   │   ├── useCategoryHierarchy.ts   # Hierarchy management
-│   │   └── index.ts                  # Category hooks exports
-│   └── index.ts                      # Category pages exports
-├── relationships/                    # Button-Category relationship domain
-│   ├── RelationshipManagePage.tsx    # Relationship management page
-│   ├── components/                   # Relationship-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── relationships/                # Relationship management components
 │   │   ├── RelationshipMatrix.tsx    # Relationship matrix view
 │   │   ├── DragDropAssignment.tsx    # Drag-drop assignment
 │   │   ├── BulkAssignment.tsx        # Bulk assignment tool
 │   │   ├── RelationshipConfig.tsx    # Relationship configuration
-│   │   └── index.ts                  # Relationship components exports
-│   ├── hooks/                        # Relationship-specific hooks
-│   │   ├── useRelationships.ts       # Relationship data management
-│   │   ├── useDragDrop.ts            # Drag-drop functionality
-│   │   ├── useBulkAssignment.ts      # Bulk assignment logic
-│   │   └── index.ts                  # Relationship hooks exports
-│   └── index.ts                      # Relationship pages exports
-├── users/                            # User management domain
-│   ├── UserListPage.tsx              # User listing page
-│   ├── UserDetailPage.tsx            # User detail view
-│   ├── UserEditPage.tsx              # User editing page
-│   ├── components/                   # User-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── users/                        # User management components
 │   │   ├── UserList.tsx              # User listing component
 │   │   ├── UserProfile.tsx           # User profile display
 │   │   ├── UserActivity.tsx          # User activity log
 │   │   ├── UserBulkActions.tsx       # User bulk operations
-│   │   └── index.ts                  # User components exports
-│   ├── hooks/                        # User-specific hooks
-│   │   ├── useUsers.ts               # User data management
-│   │   ├── useUserActivity.ts        # User activity tracking
-│   │   ├── useUserActions.ts         # User action hooks
-│   │   └── index.ts                  # User hooks exports
-│   └── index.ts                      # User pages exports
-├── favorites/                        # Favorites management domain
-│   ├── FavoriteListPage.tsx          # Favorites listing page
-│   ├── FavoriteDetailPage.tsx        # Favorite detail view
-│   ├── components/                   # Favorite-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── favorites/                    # Favorites management components
 │   │   ├── FavoriteList.tsx          # Favorites listing
 │   │   ├── FavoriteModeration.tsx    # Moderation tools
 │   │   ├── FavoriteAnalytics.tsx     # Usage analytics
 │   │   ├── FavoriteBulkActions.tsx   # Bulk operations
-│   │   └── index.ts                  # Favorite components exports
-│   ├── hooks/                        # Favorite-specific hooks
-│   │   ├── useFavorites.ts           # Favorite data management
-│   │   ├── useModeration.ts          # Moderation functionality
-│   │   ├── useFavoriteAnalytics.ts   # Analytics hooks
-│   │   └── index.ts                  # Favorite hooks exports
-│   └── index.ts                      # Favorite pages exports
-├── settings/                         # Settings management domain
-│   ├── SettingListPage.tsx           # Settings listing page
-│   ├── SettingEditPage.tsx           # Settings editing page
-│   ├── components/                   # Setting-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── settings/                     # Settings management components
 │   │   ├── SettingList.tsx           # Settings listing
 │   │   ├── SettingForm.tsx           # Settings form
 │   │   ├── SettingTemplates.tsx      # Settings templates
 │   │   ├── SettingAudit.tsx          # Audit trail display
-│   │   └── index.ts                  # Setting components exports
-│   ├── hooks/                        # Setting-specific hooks
-│   │   ├── useSettings.ts            # Settings data management
-│   │   ├── useSettingTemplates.ts    # Template management
-│   │   ├── useSettingAudit.ts        # Audit trail hooks
-│   │   └── index.ts                  # Setting hooks exports
-│   └── index.ts                      # Setting pages exports
-├── purge/                            # Data purge domain
-│   ├── PurgeManagePage.tsx           # Purge management page
-│   ├── components/                   # Purge-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── purge/                        # Data purge components
 │   │   ├── DataAnalysis.tsx          # Data analysis display
 │   │   ├── PurgePreview.tsx          # Purge preview component
 │   │   ├── PurgeConfirmation.tsx     # Multi-step confirmation
 │   │   ├── PurgeAudit.tsx            # Purge audit trail
 │   │   ├── CascadeAnalysis.tsx       # CASCADE impact analysis
-│   │   └── index.ts                  # Purge components exports
-│   ├── hooks/                        # Purge-specific hooks
-│   │   ├── usePurgeData.ts           # Purge data management
-│   │   ├── usePurgePreview.ts        # Preview functionality
-│   │   ├── usePurgeConfirmation.ts   # Confirmation workflow
-│   │   └── index.ts                  # Purge hooks exports
-│   └── index.ts                      # Purge pages exports
-├── admin/                            # System administration domain
-│   ├── AdminDashboardPage.tsx        # Admin dashboard
-│   ├── AdminUserPage.tsx             # Admin user management
-│   ├── RoleManagePage.tsx            # Role management
-│   ├── PermissionPage.tsx            # Permission management
-│   ├── components/                   # Admin-specific components
+│   │   └── index.ts                  # Public exports
+│   ├── admin/                        # System administration components
 │   │   ├── AdminUserList.tsx         # Admin user listing
 │   │   ├── RoleEditor.tsx            # Role editing component
 │   │   ├── PermissionMatrix.tsx      # Permission matrix
 │   │   ├── SecuritySettings.tsx      # Security configuration
-│   │   └── index.ts                  # Admin components exports
-│   ├── hooks/                        # Admin-specific hooks
-│   │   ├── useAdminUsers.ts          # Admin user management
-│   │   ├── useRoles.ts               # Role management
-│   │   ├── usePermissions.ts         # Permission management
-│   │   └── index.ts                  # Admin hooks exports
-│   └── index.ts                      # Admin pages exports
-├── app-settings/                     # Application settings domain
-│   ├── AppSettingsPage.tsx           # Application settings page
-│   ├── components/                   # App settings components
+│   │   └── index.ts                  # Public exports
+│   ├── app-settings/                 # Application settings components
 │   │   ├── EnvironmentSettings.tsx   # Environment configuration
 │   │   ├── DebugSettings.tsx         # Debug mode settings
 │   │   ├── ThemeSettings.tsx         # Theme customization
 │   │   ├── FeatureFlags.tsx          # Feature flag management
 │   │   ├── LogViewer.tsx             # Log viewing component
-│   │   └── index.ts                  # App settings components exports
-│   ├── hooks/                        # App settings hooks
-│   │   ├── useAppSettings.ts         # App settings management
-│   │   ├── useEnvironment.ts         # Environment management
-│   │   ├── useTheme.ts               # Theme management
-│   │   └── index.ts                  # App settings hooks exports
+│   │   └── index.ts                  # Public exports
+│   └── index.ts                      # Domain components public exports
+└── index.ts                          # All components public exports
+```
+
+## 📄 Pages Directory Structure - **CLEAN PAGES ONLY**
+
+```
+src/pages/
+├── dashboard/                        # Dashboard domain
+│   ├── DashboardPage.tsx             # Main dashboard page (imports from components/domain/dashboard)
+│   └── index.ts                      # Dashboard page exports
+├── buttons/                          # Button management domain
+│   ├── ButtonListPage.tsx            # Button listing page (imports from components/domain/buttons)
+│   ├── ButtonCreatePage.tsx          # Button creation page
+│   ├── ButtonEditPage.tsx            # Button editing page
+│   ├── ButtonDetailPage.tsx          # Button detail view
+│   └── index.ts                      # Button pages exports
+├── categories/                       # Category management domain  
+│   ├── CategoryListPage.tsx          # Category listing page (imports from components/domain/categories)
+│   ├── CategoryCreatePage.tsx        # Category creation page
+│   ├── CategoryEditPage.tsx          # Category editing page
+│   ├── CategoryDetailPage.tsx        # Category detail view
+│   └── index.ts                      # Category pages exports
+├── relationships/                    # Button-Category relationship domain
+│   ├── RelationshipManagePage.tsx    # Relationship management page (imports from components/domain/relationships)
+│   └── index.ts                      # Relationship pages exports
+├── users/                            # User management domain
+│   ├── UserListPage.tsx              # User listing page (imports from components/domain/users)
+│   ├── UserDetailPage.tsx            # User detail view
+│   ├── UserEditPage.tsx              # User editing page
+│   └── index.ts                      # User pages exports
+├── favorites/                        # Favorites management domain
+│   ├── FavoriteListPage.tsx          # Favorites listing page (imports from components/domain/favorites)
+│   ├── FavoriteDetailPage.tsx        # Favorite detail view
+│   └── index.ts                      # Favorite pages exports
+├── settings/                         # Settings management domain
+│   ├── SettingListPage.tsx           # Settings listing page (imports from components/domain/settings)
+│   ├── SettingEditPage.tsx           # Settings editing page
+│   └── index.ts                      # Setting pages exports
+├── purge/                            # Data purge domain
+│   ├── PurgeManagePage.tsx           # Purge management page (imports from components/domain/purge)
+│   └── index.ts                      # Purge pages exports
+├── admin/                            # System administration domain
+│   ├── AdminDashboardPage.tsx        # Admin dashboard (imports from components/domain/admin)
+│   ├── AdminUserPage.tsx             # Admin user management
+│   ├── RoleManagePage.tsx            # Role management
+│   ├── PermissionPage.tsx            # Permission management
+│   └── index.ts                      # Admin pages exports
+├── app-settings/                     # Application settings domain
+│   ├── AppSettingsPage.tsx           # Application settings page (imports from components/domain/app-settings)
 │   └── index.ts                      # App settings exports
 ├── auth/                             # Authentication domain
-│   ├── LoginPage.tsx                 # Login page
+│   ├── LoginPage.tsx                 # Login page (imports from components/domain/auth)
 │   ├── LogoutPage.tsx                # Logout confirmation
-│   ├── components/                   # Auth-specific components
-│   │   ├── LoginForm.tsx             # Login form
-│   │   ├── AuthGuard.tsx             # Route protection
-│   │   ├── RoleGuard.tsx             # Role-based protection
-│   │   └── index.ts                  # Auth components exports
-│   ├── hooks/                        # Auth-specific hooks
-│   │   ├── useAuth.ts                # Authentication logic
-│   │   ├── useAuthGuard.ts           # Route protection hook
-│   │   └── index.ts                  # Auth hooks exports
 │   └── index.ts                      # Auth pages exports
 ├── error/                            # Error handling pages
 │   ├── NotFoundPage.tsx              # 404 error page
@@ -365,7 +295,7 @@ src/pages/
 └── index.ts                          # All pages public exports
 ```
 
-## 🔧 Hooks Directory Structure
+## 🔧 Hooks Directory Structure - **SINGLE SOURCE OF TRUTH**
 
 ```
 src/hooks/
@@ -406,6 +336,57 @@ src/hooks/
 │   ├── useFilter.ts                  # Filtering logic
 │   ├── useSearch.ts                  # Search functionality
 │   └── index.ts                      # Data hooks exports
+├── domain/                           # Domain-specific hooks (SINGLE LOCATION)
+│   ├── dashboard/                    # Dashboard hooks
+│   │   ├── useDashboardData.ts       # Dashboard data fetching
+│   │   ├── useMetrics.ts             # Metrics data hook
+│   │   └── index.ts                  # Dashboard hooks exports
+│   ├── buttons/                      # Button management hooks
+│   │   ├── useButtons.ts             # Button data management
+│   │   ├── useButtonForm.ts          # Button form logic
+│   │   ├── useButtonActions.ts       # Button actions hook
+│   │   └── index.ts                  # Button hooks exports
+│   ├── categories/                   # Category management hooks
+│   │   ├── useCategories.ts          # Category data management
+│   │   ├── useCategoryForm.ts        # Category form logic
+│   │   ├── useCategoryHierarchy.ts   # Hierarchy management
+│   │   └── index.ts                  # Category hooks exports
+│   ├── relationships/                # Relationship hooks
+│   │   ├── useRelationships.ts       # Relationship data management
+│   │   ├── useDragDrop.ts            # Drag-drop functionality
+│   │   ├── useBulkAssignment.ts      # Bulk assignment logic
+│   │   └── index.ts                  # Relationship hooks exports
+│   ├── users/                        # User management hooks
+│   │   ├── useUsers.ts               # User data management
+│   │   ├── useUserActivity.ts        # User activity tracking
+│   │   ├── useUserActions.ts         # User action hooks
+│   │   └── index.ts                  # User hooks exports
+│   ├── favorites/                    # Favorites hooks
+│   │   ├── useFavorites.ts           # Favorite data management
+│   │   ├── useModeration.ts          # Moderation functionality
+│   │   ├── useFavoriteAnalytics.ts   # Analytics hooks
+│   │   └── index.ts                  # Favorite hooks exports
+│   ├── settings/                     # Settings hooks
+│   │   ├── useSettings.ts            # Settings data management
+│   │   ├── useSettingTemplates.ts    # Template management
+│   │   ├── useSettingAudit.ts        # Audit trail hooks
+│   │   └── index.ts                  # Setting hooks exports
+│   ├── purge/                        # Data purge hooks
+│   │   ├── usePurgeData.ts           # Purge data management
+│   │   ├── usePurgePreview.ts        # Preview functionality
+│   │   ├── usePurgeConfirmation.ts   # Confirmation workflow
+│   │   └── index.ts                  # Purge hooks exports
+│   ├── admin/                        # Admin hooks
+│   │   ├── useAdminUsers.ts          # Admin user management
+│   │   ├── useRoles.ts               # Role management
+│   │   ├── usePermissions.ts         # Permission management
+│   │   └── index.ts                  # Admin hooks exports
+│   ├── app-settings/                 # App settings hooks
+│   │   ├── useAppSettings.ts         # App settings management
+│   │   ├── useEnvironment.ts         # Environment management
+│   │   ├── useTheme.ts               # Theme management
+│   │   └── index.ts                  # App settings hooks exports
+│   └── index.ts                      # Domain hooks exports
 └── index.ts                          # All hooks public exports
 ```
 

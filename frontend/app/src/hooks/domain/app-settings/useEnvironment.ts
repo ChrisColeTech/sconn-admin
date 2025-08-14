@@ -1,0 +1,2 @@
+// useEnvironment placeholder
+export {};

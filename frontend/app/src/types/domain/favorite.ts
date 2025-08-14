@@ -1,0 +1,2 @@
+// favorite placeholder
+export {};

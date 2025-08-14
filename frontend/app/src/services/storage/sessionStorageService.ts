@@ -1,0 +1,2 @@
+// sessionStorageService placeholder
+export {};

@@ -1,0 +1,2 @@
+// useSessionStorage placeholder
+export {};

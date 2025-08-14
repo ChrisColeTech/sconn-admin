@@ -63,7 +63,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logout = async (): Promise<void> => {
     setIsLoading(true);
     try {
-      await authService.logout();
+      const currentRefreshToken = refreshToken || tokenService.getRefreshToken();
+      await authService.logout(currentRefreshToken || undefined);
     } catch (error) {
       console.warn('Logout request failed:', error);
     } finally {

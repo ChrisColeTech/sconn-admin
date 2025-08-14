@@ -1,0 +1,2 @@
+// useQuery placeholder
+export {};

@@ -1,0 +1,2 @@
+// favoriteService placeholder
+export {};

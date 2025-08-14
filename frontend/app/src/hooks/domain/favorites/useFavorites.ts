@@ -1,0 +1,2 @@
+// useFavorites placeholder
+export {};

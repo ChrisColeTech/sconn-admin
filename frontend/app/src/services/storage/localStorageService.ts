@@ -1,0 +1,2 @@
+// localStorageService placeholder
+export {};

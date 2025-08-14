@@ -1,0 +1,2 @@
+// useSettingTemplates placeholder
+export {};

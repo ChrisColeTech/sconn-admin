@@ -1,0 +1,2 @@
+// environmentStore placeholder
+export {};

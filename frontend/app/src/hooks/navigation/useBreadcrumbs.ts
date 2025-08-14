@@ -1,0 +1,2 @@
+// useBreadcrumbs placeholder
+export {};
