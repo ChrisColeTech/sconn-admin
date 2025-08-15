@@ -4,9 +4,11 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import authRoutes from '@/routes/auth.js';
+import { createAnalyticsRoutes } from '@/routes/analytics.js';
+import { createButtonRoutes } from '@/routes/buttons.js';
 import { runMigrations } from '@/database/migrate.js';
 import { seedDatabase } from '@/database/seed.js';
-import { closeDatabase } from '@/database/connection.js';
+import { closeDatabase, getDatabase } from '@/database/connection.js';
 
 // Load environment variables
 dotenv.config({ path: '.env' });
@@ -65,6 +67,8 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/analytics', createAnalyticsRoutes(getDatabase()));
+app.use('/api/buttons', createButtonRoutes(getDatabase()));
 
 // 404 handler
 app.use('*', (req, res) => {

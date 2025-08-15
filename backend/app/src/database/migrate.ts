@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getDatabase } from './connection.js';
+import { migrateAnalytics, seedAnalyticsData } from './analytics-migrate.js';
 
 export async function runMigrations(): Promise<void> {
   const db = getDatabase();
@@ -8,6 +9,7 @@ export async function runMigrations(): Promise<void> {
   try {
     console.log('Running database migrations...');
     
+    // Run main schema
     const schemaPath = path.join(process.cwd(), 'src/database/schema.sql');
     const schema = fs.readFileSync(schemaPath, 'utf8');
     
@@ -20,6 +22,14 @@ export async function runMigrations(): Promise<void> {
     for (const statement of statements) {
       await db.run(statement);
     }
+    
+    // Run analytics migration
+    console.log('Running analytics migrations...');
+    await migrateAnalytics(db);
+    
+    // Seed analytics data
+    console.log('Seeding analytics data...');
+    await seedAnalyticsData(db);
     
     console.log('Database migrations completed successfully');
   } catch (error) {

@@ -95,3 +95,4 @@ cdk.out/
 
 # Local development
 .local/
+/.serena
