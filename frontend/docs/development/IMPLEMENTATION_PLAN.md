@@ -691,53 +691,52 @@ git commit -m "Phase X: [Phase Name] - [Key achievements and metrics]
 
 ### **Objective 7: Button-Category Relationship Management**
 
-**Feature**: Visual relationship mapping interface with drag-and-drop assignment, matrix view, and bulk operations
+**Feature**: Simple category-focused relationship management with clean CRUD operations
 
-**Target**: Create a sophisticated relationship management system with visual matrix interface, intuitive drag-and-drop assignment, and bulk relationship operations with glassmorphism design
+**Target**: Create a straightforward relationship management system where users can view categories and easily add/remove buttons from each category with glassmorphism design
 
 #### **🔧 Implementation Steps**
 
 **Step 1: Analysis & Discovery**
 
-- ✅ Read Phase 1-6 documentation for button and category CRUD patterns and hierarchy validation
-- ✅ Research relationship matrix visualization libraries and custom grid implementations
-- ✅ Study many-to-many relationship UI patterns with visual feedback and bulk operations
-- ✅ Analyze drag-and-drop assignment interfaces with relationship preview and confirmation
-- ✅ Review relationship configuration patterns (order, banner details, pilot store settings)
-- ✅ Examine relationship impact visualization and dependency chain analysis
+- ✅ Read Phase 5-6 documentation for button and category CRUD patterns and data structures
+- ✅ Study simple many-to-many relationship management UI patterns and admin interfaces
+- ✅ Review category-focused list interfaces with expandable button assignment sections
+- ✅ Analyze button selection patterns (search, filter, checkbox selection) for assignment
+- ✅ Review relationship data requirements (categoryId, buttonId, itemOrder, active status)
+- ✅ Examine admin workflow patterns for adding/removing relationships efficiently
 
 **Step 2: Design & Planning**
 
-- ✅ Design glassmorphism relationship matrix with glass-primary container and glass-interactive cells
-- ✅ Plan drag-and-drop assignment from button list to category grid with visual connection lines
-- ✅ Design relationship configuration modal with glass-secondary styling and multi-step form
-- ✅ Plan bulk assignment tools with selection state visualization and confirmation workflows
-- ✅ Design relationship impact analyzer showing cascading effects with animated flow visualization
-- ✅ Plan mobile-responsive relationship manager with collapsible sections and touch optimization
+- ✅ Design category list interface with glassmorphism cards (glass-primary containers)
+- ✅ Plan expandable category sections showing assigned buttons with glass-secondary styling
+- ✅ Design button selection modal with search, filter, and checkbox selection interface
+- ✅ Plan relationship actions (add buttons, remove buttons, reorder) with confirmation dialogs
+- ✅ Design mobile-responsive category management with collapsible sections and touch optimization
+- ✅ Plan simple relationship status indicators (active/inactive, order display)
 
 **Step 3: Implementation**
 
-- ✅ **ENFORCE SRP**: Create RelationshipMatrix, DragAssignment, BulkOperations, ConfigurationModal, ImpactVisualizer components (each <100 lines)
-- ✅ **STYLE GUIDE COMPLIANCE**: Use glass-primary for matrix container, gradient indicators for relationship strength, brand colors for connections
-- ✅ **ANIMATION STANDARDS**: Implement connection line animations, drag feedback with scale transforms, matrix cell hover with glow effects
-- ✅ **DOMAIN MODELS**: Create CategoryButtonData interface with categoryId, buttonId, bannerDetail, itemOrder, active, atHome, pilotStores properties
-- ✅ **DATABASE SCHEMA**: Implement category_buttons junction table with composite primary key and relationship metadata
-- ✅ **HTTP SERVICES**: Build relationshipService.ts with GET /category-buttons, POST /category-buttons, PUT /category-buttons, DELETE /category-buttons
-- ✅ **CUSTOM HOOKS**: Create useRelationships, useCreateRelationship, useUpdateRelationship, useBulkAssignment hooks
-- ✅ Build RelationshipMatrix with custom grid implementation, glassmorphism cell styling, and smooth hover animations
-- ✅ Implement drag-and-drop assignment with visual connection preview, drop zone highlighting, and relationship confirmation
-- ✅ Create relationship configuration forms with multi-step modal, order settings, and banner detail inputs
-- ✅ Add bulk assignment tools with checkbox selection, batch operation confirmation, and progress animations
-- ✅ Build relationship impact visualizer with dependency chain display and cascading effect preview
-- ✅ **ARCHITECTURE**: Separate matrix rendering, drag logic, relationship persistence, and configuration management as distinct services
+- ✅ **ENFORCE SRP**: Create CategoryRelationshipList, CategoryCard, ButtonSelectionModal, RelationshipActions, ButtonAssignmentList components (each <100 lines)
+- ✅ **STYLE GUIDE COMPLIANCE**: Use glass-primary for category cards, glass-secondary for button lists, standard button styling for actions
+- ✅ **ANIMATION STANDARDS**: Implement smooth expand/collapse animations, hover effects on category cards, loading states for relationship updates
+- ✅ **DOMAIN MODELS**: Create CategoryButtonData interface with categoryId, buttonId, itemOrder, active properties
+- ✅ **DATABASE SCHEMA**: Use existing category_buttons junction table with composite primary key
+- ✅ **HTTP SERVICES**: Build relationshipService.ts with GET /categories/:id/buttons, POST /categories/:id/buttons, DELETE /categories/:id/buttons/:buttonId
+- ✅ **CUSTOM HOOKS**: Create useCategoryButtons, useAddButtonToCategory, useRemoveButtonFromCategory hooks
+- ✅ Build category list with expandable sections showing assigned buttons with glassmorphism styling
+- ✅ Implement button assignment modal with search functionality and checkbox selection
+- ✅ Create simple add/remove relationship actions with confirmation dialogs
+- ✅ Add relationship reordering within categories with drag handles or up/down buttons
+- ✅ **ARCHITECTURE**: Separate category display, button selection, relationship persistence, and state management as distinct services
 
 **Step 4: Testing & Validation**
 
-- ✅ Test relationship matrix handles large datasets (1000+ buttons, 100+ categories) with smooth scrolling
-- ✅ Verify drag-and-drop assignment provides clear visual feedback and prevents invalid relationships
-- ✅ Test bulk operations maintain performance with large selections and provide progress indication
-- ✅ Validate relationship configuration saves correctly and integrates with button/category data
-- ✅ Test impact analysis accurately calculates dependency chains and cascading effects
+- ✅ Test category list handles large datasets with smooth expansion/collapse and search performance
+- ✅ Verify button assignment/removal works correctly and updates relationship data
+- ✅ Test button selection modal search and filtering functionality
+- ✅ Validate relationship order changes save correctly and persist across page reloads
+- ✅ Test mobile responsiveness of category expansion and button selection interfaces
 - ✅ Verify mobile relationship management maintains usability with touch interactions
 
 **Step 5: Documentation & Tracking**
@@ -759,23 +758,23 @@ git commit -m "Phase X: [Phase Name] - [Key achievements and metrics]
 
 **Step 7: Quality Assurance Final Check**
 
-- ✅ **STYLE GUIDE AUDIT**: Verify matrix components use defined glassmorphism effects and relationship indicators follow brand colors
-- ✅ **ARCHITECTURE AUDIT**: Confirm relationship logic separated from UI rendering, drag handlers isolated from persistence
+- ✅ **STYLE GUIDE AUDIT**: Verify category components use defined glassmorphism effects and relationship indicators follow brand colors
+- ✅ **ARCHITECTURE AUDIT**: Confirm relationship logic separated from UI rendering, button selection isolated from persistence
 - ✅ Validate relationship management completes button-category feature set for user management transition
-- ✅ Ensure matrix visualization meets performance guidelines with smooth animations and scrolling
+- ✅ Ensure category list interface meets performance guidelines with smooth expand/collapse animations
 - ✅ Test relationship system integrates seamlessly with button and category management workflows
 - ✅ Update progress tracking - core content management features complete, ready for user administration
 
-**Dependencies**: Objective 6 (Category hierarchy for complete relationship context)
+**Dependencies**: Objective 6 (Category management for relationship context)
 
 **Deliverables**:
 
-- Visual relationship matrix interface
-- Drag-and-drop assignment system with feedback
-- Bulk relationship operation tools
-- Relationship configuration modals
-- Impact analysis and dependency visualization
-- Mobile-responsive relationship management
+- Category-focused relationship management interface
+- Button assignment modal with search and selection
+- Simple add/remove relationship operations
+- Relationship ordering within categories
+- Mobile-responsive category and button management
+- Clean admin workflow for relationship CRUD operations
 
 ---
 
