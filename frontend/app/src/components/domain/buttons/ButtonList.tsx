@@ -9,7 +9,7 @@ import {
   createColumnHelper,
   flexRender,
 } from '@tanstack/react-table';
-import { ButtonData } from '../../../types/domain/button';
+import { ButtonData, GetButtonsParams } from '../../../types/api/index';
 import { useButtons } from '@hooks/domain/buttons/useButtons';
 import { useDeleteButton } from '@hooks/domain/buttons/useButtonActions';
 import { Button } from '@components/ui/Button/Button';
@@ -17,7 +17,7 @@ import { Loading } from '@components/ui/Loading/Loading';
 
 interface ButtonListProps {
   searchTerm?: string;
-  filters?: any;
+  filters?: Partial<GetButtonsParams>;
   onEditButton?: (button: ButtonData) => void;
 }
 
@@ -34,7 +34,7 @@ export const ButtonList: React.FC<ButtonListProps> = ({
     search: searchTerm,
     ...filters,
     page: pagination.pageIndex + 1,
-    per_page: pagination.pageSize,
+    limit: pagination.pageSize,
   });
 
   const { mutate: deleteButton } = useDeleteButton();
@@ -59,34 +59,26 @@ export const ButtonList: React.FC<ButtonListProps> = ({
         />
       ),
     }),
-    columnHelper.accessor('display_text', {
+    columnHelper.accessor('name', {
       header: 'Button Name',
       cell: (info) => (
         <div className="flex items-center space-x-3">
-          {info.row.original.icon && (
-            <span className="text-xl">{info.row.original.icon}</span>
-          )}
           <div>
             <div className="font-medium text-white">{info.getValue()}</div>
-            <div className="text-sm text-white/60">{info.row.original.name}</div>
+            <div className="text-sm text-white/60">{info.row.original.description || 'No description'}</div>
           </div>
         </div>
       ),
     }),
-    columnHelper.accessor('action_type', {
-      header: 'Action Type',
+    columnHelper.accessor('url', {
+      header: 'URL',
       cell: (info) => (
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${{
-          navigate: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
-          external: 'bg-green-500/20 text-green-300 border border-green-500/30',
-          function: 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
-          modal: 'bg-pink-500/20 text-pink-300 border border-pink-500/30',
-        }[info.getValue()] || 'bg-gray-500/20 text-gray-300'}`}>
-          {info.getValue()}
-        </span>
+        <div className="max-w-xs truncate">
+          <span className="text-white/80 text-sm">{info.getValue()}</span>
+        </div>
       ),
     }),
-    columnHelper.accessor('is_active', {
+    columnHelper.accessor('active', {
       header: 'Status',
       cell: (info) => (
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -124,7 +116,7 @@ export const ButtonList: React.FC<ButtonListProps> = ({
   ];
 
   const table = useReactTable({
-    data: data?.buttons || [],
+    data: data?.data?.buttons || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -132,7 +124,7 @@ export const ButtonList: React.FC<ButtonListProps> = ({
     getPaginationRowModel: getPaginationRowModel(),
     state: { pagination },
     onPaginationChange: setPagination,
-    pageCount: data?.total_pages || 0,
+    pageCount: data?.data?.pagination?.totalPages || 0,
     manualPagination: true,
   });
 

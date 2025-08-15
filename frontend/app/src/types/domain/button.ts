@@ -1,59 +1,84 @@
-// Button domain types for SConnect Admin
+/**
+ * Button domain types for SConnect Admin
+ * 
+ * CRITICAL: These types are extracted from API_REFERENCE.md to ensure
+ * API compatibility. Any changes must be synchronized with the API.
+ * 
+ * Source: /mnt/c/Projects/sconn-admin/frontend/docs/development/API_REFERENCE.md
+ */
+
+// Import CategoryData from API types
+import { CategoryData } from '../api';
 
 export interface ButtonData {
-  id: string;
+  id: number;
   name: string;
-  display_text: string;
-  icon?: string;
-  color?: string;
-  action_type: 'navigate' | 'external' | 'function' | 'modal';
-  action_value?: string;
   description?: string;
-  is_active: boolean;
-  order_index: number;
-  created_by?: string;
-  created_at: string;
-  updated_at: string;
+  url: string;
+  itemOrder: number;
+  image?: string;
+  active: boolean;
+  externalBrowser: boolean;
+  atHome: boolean;
+  addUser?: string;
+  addDate?: string; // ISO date
+  mtcUser?: string;
+  mtcDate?: string; // ISO date
+  categories?: CategoryData[];
 }
 
 export interface CreateButtonRequest {
   name: string;
-  display_text: string;
-  icon?: string;
-  color?: string;
-  action_type: 'navigate' | 'external' | 'function' | 'modal';
-  action_value?: string;
   description?: string;
-  is_active?: boolean;
-  order_index?: number;
+  url: string;
+  itemOrder?: number;
+  image?: string;
+  active?: boolean;
+  externalBrowser?: boolean;
+  atHome?: boolean;
 }
 
 export interface UpdateButtonRequest {
   name?: string;
-  display_text?: string;
-  icon?: string;
-  color?: string;
-  action_type?: 'navigate' | 'external' | 'function' | 'modal';
-  action_value?: string;
   description?: string;
-  is_active?: boolean;
-  order_index?: number;
+  url?: string;
+  itemOrder?: number;
+  image?: string;
+  active?: boolean;
+  externalBrowser?: boolean;
+  atHome?: boolean;
 }
 
-export interface ButtonFilters {
+export interface GetButtonsParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  active?: boolean;
+  categoryId?: number;
+  sort?: 'name' | 'createdAt' | 'updatedAt' | 'itemOrder';
+  order?: 'asc' | 'desc';
+}
+
+export interface ButtonListResponse {
+  success: boolean;
+  data: {
+    buttons: ButtonData[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
+  };
+}
+
+// Legacy types for compatibility - to be removed
+export interface ButtonFilters extends GetButtonsParams {
   search?: string;
   is_active?: boolean;
   action_type?: string;
   created_after?: string;
   created_before?: string;
-}
-
-export interface ButtonListResponse {
-  buttons: ButtonData[];
-  total: number;
-  page: number;
-  per_page: number;
-  total_pages: number;
 }
 
 export interface ButtonUsageAnalytics {

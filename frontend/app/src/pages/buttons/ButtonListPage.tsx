@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ButtonData } from '../../types/domain/button';
+import { ButtonData, GetButtonsParams } from '../../types/api/index';
 import { ButtonList } from '@components/domain/buttons/ButtonList';
 import { ButtonForm } from '@components/domain/buttons/ButtonForm';
 
@@ -14,9 +14,9 @@ export const ButtonListPage: React.FC = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedButton, setSelectedButton] = useState<ButtonData | null>(null);
-  const [filters, setFilters] = useState({
-    is_active: undefined as boolean | undefined,
-    action_type: undefined as string | undefined,
+  const [filters, setFilters] = useState<Partial<GetButtonsParams>>({
+    active: undefined,
+    categoryId: undefined,
   });
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -73,10 +73,10 @@ export const ButtonListPage: React.FC = () => {
             </div>
             <div className="flex gap-4">
               <select
-                value={filters.is_active?.toString() || ''}
+                value={filters.active?.toString() || ''}
                 onChange={(e) => setFilters(prev => ({
                   ...prev,
-                  is_active: e.target.value === '' ? undefined : e.target.value === 'true'
+                  active: e.target.value === '' ? undefined : e.target.value === 'true'
                 }))}
                 className="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-white"
               >
@@ -85,18 +85,18 @@ export const ButtonListPage: React.FC = () => {
                 <option value="false">Inactive</option>
               </select>
               <select
-                value={filters.action_type || ''}
+                value={filters.sort || ''}
                 onChange={(e) => setFilters(prev => ({
                   ...prev,
-                  action_type: e.target.value || undefined
+                  sort: e.target.value as any || undefined
                 }))}
                 className="px-4 py-2 rounded-lg bg-white/5 border border-white/20 text-white"
               >
-                <option value="">All Types</option>
-                <option value="navigate">Navigate</option>
-                <option value="external">External</option>
-                <option value="function">Function</option>
-                <option value="modal">Modal</option>
+                <option value="">Sort By</option>
+                <option value="name">Name</option>
+                <option value="itemOrder">Order</option>
+                <option value="createdAt">Created</option>
+                <option value="updatedAt">Updated</option>
               </select>
             </div>
           </div>

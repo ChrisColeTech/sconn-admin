@@ -1,41 +1,36 @@
-import { apiClient } from '@services/api/apiClient';
 import { 
   ButtonData, 
   CreateButtonRequest, 
   UpdateButtonRequest, 
-  ButtonFilters, 
+  GetButtonsParams, 
   ButtonListResponse 
-} from '../../types/domain/button';
+} from '../../types/api/index';
+import { apiClient } from '../api/apiClient';
 
 export class ButtonService {
-  async getButtons(filters?: ButtonFilters & { page?: number; per_page?: number }): Promise<ButtonListResponse> {
+  async getButtons(params?: GetButtonsParams): Promise<ButtonListResponse> {
     try {
-      const params = new URLSearchParams();
+      const queryParams = new URLSearchParams();
       
-      if (filters?.search) params.append('search', filters.search);
-      if (filters?.is_active !== undefined) params.append('is_active', filters.is_active.toString());
-      if (filters?.action_type) params.append('action_type', filters.action_type);
-      if (filters?.page) params.append('page', filters.page.toString());
-      if (filters?.per_page) params.append('per_page', filters.per_page.toString());
+      if (params?.search) queryParams.append('search', params.search);
+      if (params?.active !== undefined) queryParams.append('active', params.active.toString());
+      if (params?.categoryId) queryParams.append('categoryId', params.categoryId.toString());
+      if (params?.page) queryParams.append('page', params.page.toString());
+      if (params?.limit) queryParams.append('limit', params.limit.toString());
+      if (params?.sort) queryParams.append('sort', params.sort);
+      if (params?.order) queryParams.append('order', params.order);
 
-      const response = await apiClient.get(`/buttons?${params.toString()}`);
+      const response = await apiClient.get(`/buttons?${queryParams.toString()}`);
       
-      const { buttons, pagination } = response.data.data;
-      
-      return {
-        buttons,
-        total: pagination.total,
-        page: pagination.page,
-        per_page: pagination.per_page,
-        total_pages: pagination.total_pages
-      };
+      // Response matches API Reference format
+      return response.data;
     } catch (error) {
       console.error('Failed to fetch buttons:', error);
       throw error;
     }
   }
 
-  async getButtonById(id: string): Promise<ButtonData> {
+  async getButtonById(id: number): Promise<ButtonData> {
     try {
       const response = await apiClient.get(`/buttons/${id}`);
       return response.data.data;
@@ -55,7 +50,7 @@ export class ButtonService {
     }
   }
 
-  async updateButton(id: string, data: UpdateButtonRequest): Promise<ButtonData> {
+  async updateButton(id: number, data: UpdateButtonRequest): Promise<ButtonData> {
     try {
       const response = await apiClient.put(`/buttons/${id}`, data);
       return response.data.data;
@@ -65,7 +60,7 @@ export class ButtonService {
     }
   }
 
-  async deleteButton(id: string): Promise<void> {
+  async deleteButton(id: number): Promise<void> {
     try {
       await apiClient.delete(`/buttons/${id}`);
     } catch (error) {
@@ -74,7 +69,7 @@ export class ButtonService {
     }
   }
 
-  async bulkUpdateButtons(updates: Array<{id: string; data: UpdateButtonRequest}>): Promise<ButtonData[]> {
+  async bulkUpdateButtons(updates: Array<{id: number; data: UpdateButtonRequest}>): Promise<ButtonData[]> {
     try {
       const response = await apiClient.post('/buttons/bulk-update', { updates });
       return response.data.data;
@@ -84,7 +79,7 @@ export class ButtonService {
     }
   }
 
-  async reorderButtons(buttonIds: string[]): Promise<void> {
+  async reorderButtons(buttonIds: number[]): Promise<void> {
     try {
       await apiClient.post('/buttons/reorder', { buttonIds });
     } catch (error) {
@@ -93,12 +88,12 @@ export class ButtonService {
     }
   }
 
-  async trackButtonClick(buttonId: string, properties?: any): Promise<void> {
+  async trackButtonClick(buttonId: number, properties?: any): Promise<void> {
     try {
       await apiClient.post('/analytics/track', {
         eventType: 'button_click',
         resourceType: 'button',
-        resourceId: buttonId,
+        resourceId: buttonId.toString(),
         properties
       });
     } catch (error) {

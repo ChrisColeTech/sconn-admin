@@ -1,19 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { buttonService } from '@services/domain/buttonService';
-import { ButtonFilters } from '../../../types/domain/button';
+import { GetButtonsParams } from '../../../types/domain/button';
 
-interface UseButtonsOptions extends ButtonFilters {
-  page?: number;
-  per_page?: number;
+interface UseButtonsOptions extends GetButtonsParams {
   enabled?: boolean;
 }
 
 export function useButtons(options: UseButtonsOptions = {}) {
-  const { enabled = true, ...filters } = options;
+  const { enabled = true, ...params } = options;
   
   return useQuery({
-    queryKey: ['buttons', filters],
-    queryFn: () => buttonService.getButtons(filters),
+    queryKey: ['buttons', params],
+    queryFn: () => buttonService.getButtons(params),
     enabled,
     staleTime: 30000, // Consider data stale after 30 seconds
     retry: 3,

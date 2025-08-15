@@ -3,22 +3,20 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ButtonData, CreateButtonRequest } from '../../../types/domain/button';
+import { ButtonData, CreateButtonRequest } from '../../../types/api/index';
 import { useCreateButton, useUpdateButton } from '@hooks/domain/buttons/useButtonActions';
 import { Button } from '@components/ui/Button/Button';
 import { Input } from '@components/ui/Input/Input';
-import { Select } from '@components/ui/Input/Select';
 
 const buttonSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(50, 'Name must be less than 50 characters'),
-  display_text: z.string().min(1, 'Display text is required').max(100, 'Display text must be less than 100 characters'),
-  icon: z.string().optional(),
-  color: z.string().optional(),
-  action_type: z.enum(['navigate', 'external', 'function', 'modal']),
-  action_value: z.string().optional(),
+  name: z.string().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
   description: z.string().max(500, 'Description must be less than 500 characters').optional(),
-  is_active: z.boolean().default(true),
-  order_index: z.number().min(0).optional(),
+  url: z.string().url('Must be a valid URL'),
+  itemOrder: z.number().min(0, 'Order must be positive').optional(),
+  image: z.string().url('Must be a valid image URL').optional(),
+  active: z.boolean().default(true),
+  externalBrowser: z.boolean().default(false),
+  atHome: z.boolean().default(false),
 });
 
 type ButtonFormData = z.infer<typeof buttonSchema>;
@@ -46,31 +44,30 @@ export const ButtonForm: React.FC<ButtonFormProps> = ({
     resolver: zodResolver(buttonSchema),
     defaultValues: button ? {
       name: button.name,
-      display_text: button.display_text,
-      icon: button.icon || '',
-      color: button.color || '',
-      action_type: button.action_type as any,
-      action_value: button.action_value || '',
       description: button.description || '',
-      is_active: button.is_active,
-      order_index: button.order_index,
+      url: button.url,
+      itemOrder: button.itemOrder,
+      image: button.image || '',
+      active: button.active,
+      externalBrowser: button.externalBrowser,
+      atHome: button.atHome,
     } : {
-      is_active: true,
-      action_type: 'navigate' as const,
+      active: true,
+      externalBrowser: false,
+      atHome: false,
     },
   });
 
   const onSubmit = (data: ButtonFormData) => {
     const requestData: CreateButtonRequest = {
       name: data.name,
-      display_text: data.display_text,
-      icon: data.icon || undefined,
-      color: data.color || undefined,
-      action_type: data.action_type,
-      action_value: data.action_value || undefined,
-      description: data.description || undefined,
-      is_active: data.is_active,
-      order_index: data.order_index,
+      description: data.description,
+      url: data.url,
+      itemOrder: data.itemOrder,
+      image: data.image,
+      active: data.active,
+      externalBrowser: data.externalBrowser,
+      atHome: data.atHome,
     };
 
     if (isEditing) {
@@ -111,53 +108,82 @@ export const ButtonForm: React.FC<ButtonFormProps> = ({
 
           <div>
             <label className="block text-sm font-medium text-white/80 mb-2">
-              Display Text *
+              URL *
             </label>
             <Input
-              {...register('display_text')}
-              error={errors.display_text?.message}
-              placeholder="Text shown to users"
+              {...register('url')}
+              error={errors.url?.message}
+              placeholder="https://example.com"
+              className="bg-white/5 border-white/20"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-white/80 mb-2">
+            Description
+          </label>
+          <Input
+            {...register('description')}
+            error={errors.description?.message}
+            placeholder="Optional description"
+            className="bg-white/5 border-white/20"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-white/80 mb-2">
+              Image URL
+            </label>
+            <Input
+              {...register('image')}
+              error={errors.image?.message}
+              placeholder="https://example.com/image.png"
+              className="bg-white/5 border-white/20"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-white/80 mb-2">
+              Order
+            </label>
+            <Input
+              {...register('itemOrder', { valueAsNumber: true })}
+              error={errors.itemOrder?.message}
+              type="number"
+              placeholder="0"
               className="bg-white/5 border-white/20"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-white/80 mb-2">
-              Icon
-            </label>
-            <Input
-              {...register('icon')}
-              placeholder="📱 or icon name"
-              className="bg-white/5 border-white/20"
+          <div className="flex items-center space-x-2">
+            <input
+              {...register('active')}
+              type="checkbox"
+              className="rounded border-white/20 bg-white/10 text-purple-500"
             />
+            <label className="text-sm text-white/80">Active</label>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <input
+              {...register('externalBrowser')}
+              type="checkbox"
+              className="rounded border-white/20 bg-white/10 text-purple-500"
+            />
+            <label className="text-sm text-white/80">External Browser</label>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-white/80 mb-2">
-              Color
-            </label>
-            <Input
-              {...register('color')}
-              placeholder="#ffffff or color name"
-              className="bg-white/5 border-white/20"
+          <div className="flex items-center space-x-2">
+            <input
+              {...register('atHome')}
+              type="checkbox"
+              className="rounded border-white/20 bg-white/10 text-purple-500"
             />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-white/80 mb-2">
-              Action Type *
-            </label>
-            <Select
-              {...register('action_type')}
-              className="bg-white/5 border-white/20"
-            >
-              <option value="navigate">Navigate</option>
-              <option value="external">External Link</option>
-              <option value="function">Function</option>
-              <option value="modal">Modal</option>
-            </Select>
+            <label className="text-sm text-white/80">At Home</label>
           </div>
         </div>
 

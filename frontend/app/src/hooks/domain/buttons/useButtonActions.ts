@@ -16,7 +16,7 @@ export function useCreateButton() {
       showToast({
         type: 'success',
         title: 'Button Created',
-        message: `Button "${newButton.display_text}" has been created successfully.`,
+        message: `Button "${newButton.name}" has been created successfully.`,
       });
     },
     onError: (error: any) => {
@@ -34,7 +34,7 @@ export function useUpdateButton() {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateButtonRequest }) => 
+    mutationFn: ({ id, data }: { id: number; data: UpdateButtonRequest }) => 
       buttonService.updateButton(id, data),
     onSuccess: (updatedButton) => {
       // Invalidate and refetch buttons list
@@ -43,7 +43,7 @@ export function useUpdateButton() {
       showToast({
         type: 'success',
         title: 'Button Updated',
-        message: `Button "${updatedButton.display_text}" has been updated successfully.`,
+        message: `Button "${updatedButton.name}" has been updated successfully.`,
       });
     },
     onError: (error: any) => {
@@ -61,7 +61,7 @@ export function useDeleteButton() {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (id: string) => buttonService.deleteButton(id),
+    mutationFn: (id: number) => buttonService.deleteButton(id),
     onSuccess: () => {
       // Invalidate and refetch buttons list
       queryClient.invalidateQueries({ queryKey: ['buttons'] });
@@ -87,7 +87,7 @@ export function useBulkUpdateButtons() {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (updates: Array<{id: string; data: UpdateButtonRequest}>) => 
+    mutationFn: (updates: Array<{id: number; data: UpdateButtonRequest}>) => 
       buttonService.bulkUpdateButtons(updates),
     onSuccess: (updatedButtons) => {
       queryClient.invalidateQueries({ queryKey: ['buttons'] });
@@ -113,7 +113,7 @@ export function useReorderButtons() {
   const { showToast } = useToast();
 
   return useMutation({
-    mutationFn: (buttonIds: string[]) => buttonService.reorderButtons(buttonIds),
+    mutationFn: (buttonIds: number[]) => buttonService.reorderButtons(buttonIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['buttons'] });
       
