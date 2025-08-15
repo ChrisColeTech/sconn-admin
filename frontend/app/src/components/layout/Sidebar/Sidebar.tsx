@@ -24,7 +24,7 @@ const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
   { name: 'Buttons', href: '/buttons', icon: RectangleStackIcon },
   { name: 'Categories', href: '/categories', icon: TagIcon },
-  { name: 'Relationships', href: '/relationships', icon: ShareIcon },
+  { name: 'Relationships', href: '/category-buttons', icon: ShareIcon },
   { name: 'Users', href: '/users', icon: UsersIcon },
   { name: 'Favorites', href: '/favorites', icon: HeartIcon },
   { name: 'Settings', href: '/settings', icon: CogIcon },

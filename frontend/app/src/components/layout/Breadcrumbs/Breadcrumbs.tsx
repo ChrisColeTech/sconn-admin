@@ -12,7 +12,7 @@ const routeLabels: Record<string, string> = {
   'dashboard': 'Dashboard',
   'buttons': 'Button Management',
   'categories': 'Category Management',
-  'relationships': 'Relationships',
+  'category-buttons': 'Relationships',
   'users': 'User Management',
   'favorites': 'Favorites',
   'settings': 'Settings',

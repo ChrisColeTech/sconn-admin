@@ -185,6 +185,7 @@ export interface CategoryButtonData {
   mtcDate?: string;
   atHome: boolean;
   pilotStores?: string;
+  button: ButtonData; // Include full button data
 }
 
 export interface CreateCategoryButtonRequest {

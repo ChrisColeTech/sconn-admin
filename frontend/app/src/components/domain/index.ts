@@ -4,7 +4,7 @@ export * from './auth';
 export * from './dashboard';
 export * from './buttons';
 export * from './categories';
-export * from './relationships';
+export * from './category-buttons';
 export * from './users';
 export * from './favorites';
 export * from './settings';
